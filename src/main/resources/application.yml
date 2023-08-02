@@ -1,12 +1,13 @@
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/jwt_security
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://mahmud.db.elephantsql.com/ttavwthq
+    username: ttavwthq
+    password: CoRdZ2dcYLEOXppiajE95ne3VLIWSSSk
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
@@ -14,3 +15,5 @@ spring:
     database: postgresql
 jwt:
   key: vszC!+%d(H:OAwJ./20G0~tnJ]VX'+fN
+server:
+  port: ${PORT:8080}

@@ -11,12 +11,12 @@ version = '0.0.1-SNAPSHOT'
 java {
     sourceCompatibility = '17'
 }
+
 jib {
-    from {
-        image=''
+    to {
+        image:'gcr.io/my-gcp-project/security-app'
     }
 }
-
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
