@@ -37,3 +37,6 @@ out/
 .vscode/
 ## MACOS
 .DS_Store
+
+##PROFILE DEV
+application-production.yml

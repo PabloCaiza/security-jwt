@@ -14,7 +14,7 @@ java {
 
 jib {
     to {
-        image:'gcr.io/my-gcp-project/security-app'
+        image = 'us-central1-docker.pkg.dev/delli-recetas/delli-recetas-docker-repo/security:2.0'
     }
 }
 configurations {

@@ -8,3 +8,14 @@ services:
       POSTGRES_DB: distribuida
     ports:
       - 5432:5432
+  customer-service:
+    image: us-central1-docker.pkg.dev/delli-recetas/delli-recetas-docker-repo/security:2.0
+    environment:
+      DB_URL: jdbc:postgresql://localhost:5432/postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      JWT_KEY: Th1sIsATestSecretKeyXD$#@!
+      PORT: 8080
+      SPRING_PROFILES_ACTIVE: default
+    ports:
+      - 8080:8080

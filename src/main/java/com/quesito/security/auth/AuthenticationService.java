@@ -4,6 +4,7 @@ import com.quesito.security.config.JwtService;
 import com.quesito.security.customer.Customer;
 import com.quesito.security.customer.CustomerRepository;
 import com.quesito.security.customer.Role;
+import com.quesito.security.exceptions.CustomerAlreadyRegister;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,11 +29,13 @@ public class AuthenticationService {
                 .rol(Role.USER)
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build();
+        customerRepository.findCustomerByEmail(request.getEmail())
+                .ifPresent(customer -> {
+                    throw new CustomerAlreadyRegister(String.format("Email %s is already register", customer.getEmail()));
+                });
         customerRepository.save(user);
         String token = jwtService.generateToken(new HashMap<>(), user);
         return AuthenticationResponse.builder().token(token).build();
-
-
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {

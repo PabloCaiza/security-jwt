@@ -24,6 +24,7 @@ public class Customer implements UserDetails {
     private String firstname;
     private String lastname;
     private String email;
+    @Column(unique = true)
     private String password;
     @Enumerated(EnumType.STRING)
     private Role rol;

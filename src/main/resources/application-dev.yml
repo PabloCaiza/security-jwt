@@ -1,20 +1,19 @@
+
 spring:
-  profiles:
-    active: dev
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
         format_sql: true
     database: postgresql
 jwt:
-  key: ${JWT_KEY}
+  key: Th1sIsATestSecretKeyXD$#@!i<3pi77a
 server:
-  port: ${port}
+  port: 8080
