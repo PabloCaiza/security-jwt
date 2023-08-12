@@ -55,6 +55,7 @@ public class AuthenticationService {
     private Map<String, Object> getExtraClaims(Customer customer) {
         HashMap<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("cedula", customer.getCedula());
+        extraClaims.put("name",customer.getName());
         return extraClaims;
     }
 
