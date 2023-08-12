@@ -25,13 +25,18 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) {
         Customer user = Customer.builder()
                 .email(request.getEmail())
-                .firstname(request.getFirstName())
+                .name(request.getName())
+                .cedula(request.getCedula())
                 .rol(Role.USER)
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build();
         customerRepository.findCustomerByEmail(request.getEmail())
                 .ifPresent(customer -> {
                     throw new CustomerAlreadyRegister(String.format("Email %s is already register", customer.getEmail()));
+                });
+        customerRepository.findCustomerByCedula(request.getCedula())
+                .ifPresent(customer -> {
+                    throw new CustomerAlreadyRegister(String.format("Cedula %s is already register", customer.getCedula()));
                 });
         customerRepository.save(user);
         String token = jwtService.generateToken(new HashMap<>(), user);
