@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +40,7 @@ public class AuthenticationService {
                     throw new CustomerAlreadyRegister(String.format("Cedula %s is already register", customer.getCedula()));
                 });
         customerRepository.save(user);
-        String token = jwtService.generateToken(new HashMap<>(), user);
+        String token = jwtService.generateToken(getExtraClaims(user), user);
         return AuthenticationResponse.builder().token(token).build();
     }
 
@@ -47,8 +48,14 @@ public class AuthenticationService {
         authenticationManager
                 .authenticate(UsernamePasswordAuthenticationToken.unauthenticated(request.getEmail(), request.getPassword()));
         var user = customerRepository.findCustomerByEmail(request.getEmail()).orElseThrow();
-        String token = jwtService.generateToken(new HashMap<>(), user);
+        String token = jwtService.generateToken(getExtraClaims(user), user);
         return AuthenticationResponse.builder().token(token).build();
+    }
+
+    private Map<String, Object> getExtraClaims(Customer customer) {
+        HashMap<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("cedula", customer.getCedula());
+        return extraClaims;
     }
 
 
